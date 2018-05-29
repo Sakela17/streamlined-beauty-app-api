@@ -14,6 +14,26 @@ const validateFields = (body) => {
     );
   }
 
+  if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(body.email)) {
+    return Promise.reject({
+        code: 422,
+        reason: 'ValidationError',
+        message: `Invalid email address`,
+        location: 'email'
+      }
+    );
+  }
+  console.log('************* ROLE ************', body.role);
+  if (body.role !== 'user' && body.role !== 'pro') {
+    return Promise.reject({
+        code: 422,
+        reason: 'ValidationError',
+        message: `Incorrect field value: expected 'pro' or 'user'`,
+        location: 'role'
+      }
+    );
+  }
+
   // Validate fields to be type string
   const stringFields = ['full_name', 'email', 'password', 'location', 'role'];
   const nonStringField = stringFields.find(field => {
