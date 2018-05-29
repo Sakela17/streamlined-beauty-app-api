@@ -28,24 +28,6 @@ app.use(
   })
 );
 
-// app.get('/api/users', (req, res, next) => {
-//
-//   knex
-//     .select()
-//     .from('users')
-//     .then(results => {
-//       console.log('*********** GET ALL USERS ***********', results);
-//
-//       if(results) {
-//         res.json(results);
-//       } else {
-//         next()
-//       }
-//     })
-//     .catch(next);
-//
-// });
-
 
 app.use('/api/signup', userRouter);
 app.use('/api/freelancers', freelancersRouter);

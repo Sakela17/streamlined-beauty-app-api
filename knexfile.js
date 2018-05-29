@@ -16,7 +16,7 @@ module.exports = {
   },
   production: {
     client: 'pg',
-    connection: CLIENT_ORIGIN
+    connection: DATABASE_URL
     // connection: process.env.HEROKU_DATABASE_URL
   }
 };
