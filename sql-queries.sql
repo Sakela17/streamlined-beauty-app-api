@@ -7,7 +7,7 @@
 DROP TABLE IF EXISTS users;
 
 --Create table:
-CREATE TABLE users (
+CREATE TABLE profiles (
   id serial PRIMARY KEY,
   full_name text NOT NULL,
   email text NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE users (
   created timestamp DEFAULT now()
 );
 
-INSERT INTO users (full_name, email, password, location, role) VALUES
+INSERT INTO profiles (full_name, email, password, location, role) VALUES
  (
     'John Davis',
     'john.davis@aol.com',

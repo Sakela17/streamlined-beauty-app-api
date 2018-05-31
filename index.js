@@ -9,7 +9,7 @@ const { PORT, CLIENT_ORIGIN } = require('./config');
 const knex = require('./knex');
 
 const userRouter = require('./routes/users');
-const freelancersRouter = require('./routes/freelancers');
+const profilesRouter = require('./routes/profiles');
 
 // Create an express application
 const app = express();
@@ -30,7 +30,7 @@ app.use(
 
 
 app.use('/api/signup', userRouter);
-app.use('/api/freelancers', freelancersRouter);
+app.use('/api/profiles', profilesRouter);
 
 
 // Catch-all 404
