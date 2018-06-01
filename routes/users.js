@@ -9,9 +9,26 @@ router.post('/', (req, res, next) => {
 
   validateFields(req.body)
     .then(newUser => {
-      return knex('users')
+      return knex('profiles')
+        .where('email', newUser.email)
+        .then(response => {
+          if(!response.length) {
+            return newUser;
+          } else {
+            return Promise.reject({
+              code: 422,
+              reason: 'ValidationError',
+              message: 'Email already taken',
+              location: 'email'
+            });
+          }
+        })
+
+    })
+    .then(newUser => {
+      return knex('profiles')
         .insert(newUser)
-        .returning('id');
+        .returning('user_id');
     })
     .then(([id]) => {
       return {id: id};

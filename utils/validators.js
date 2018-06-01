@@ -93,10 +93,11 @@ const validateFields = (body) => {
   }
 
   // Email and password come in pre-trimmed
-  let {full_name, email, password, location, role} = body;
-  full_name = full_name.trim();
-  location  = location.trim();
-  role      = role.trim();
+  let {full_name, email, password, location, role, service_type} = body;
+  full_name    = full_name.trim();
+  location     = location.trim();
+  role         = role.trim();
+  service_type = service_type.trim();
 
   // If all validations pass, resolve with object
   return Promise.resolve({
@@ -104,7 +105,8 @@ const validateFields = (body) => {
     email,
     password,
     location,
-    role
+    role,
+    service_type
   });
 
 };
