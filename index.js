@@ -10,6 +10,7 @@ const knex = require('./knex');
 
 const userRouter = require('./routes/users');
 const profilesRouter = require('./routes/profiles');
+const servicesRouter = require('./routes/services');
 
 // Create an express application
 const app = express();
@@ -31,6 +32,7 @@ app.use(
 
 app.use('/api/signup', userRouter);
 app.use('/api/profiles', profilesRouter);
+app.use('/api/services', servicesRouter);
 
 
 // Catch-all 404

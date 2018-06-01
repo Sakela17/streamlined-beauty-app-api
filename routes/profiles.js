@@ -6,7 +6,8 @@ const knex = require('../knex');
 /* ========== GET/READ ALL ITEMS ========== */
 router.get('/', (req, res, next) => {
   knex('profiles')
-    .select('id', 'full_name', 'email', 'password', 'location', 'role')
+    // .select()
+    .where('role', 'pro')
     .then(results => {
       res.json(results);
     })
@@ -19,9 +20,9 @@ router.get('/:id', (req, res, next) => {
 
 
   knex
-    .first('id', 'full_name', 'email', 'password', 'location', 'role')
+    .first()
     .from('profiles')
-    .where('id', userId)
+    .where('user_id', userId)
     .then(user => {
       if (user) {
         res.json(user);

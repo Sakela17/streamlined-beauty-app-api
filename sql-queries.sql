@@ -4,24 +4,64 @@
 --DROP TABLE IF EXISTS notes;
 --DROP TABLE IF EXISTS folders;
 
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS services;
+DROP TABLE IF EXISTS profiles;
+
 
 --Create table:
 CREATE TABLE profiles (
-  id serial PRIMARY KEY,
+  user_id serial PRIMARY KEY,
   full_name text NOT NULL,
   email text NOT NULL,
   password text NOT NULL,
   location text NOT NULL,
   role text NOT NULL,
+  service_type text,
   created timestamp DEFAULT now()
 );
 
-INSERT INTO profiles (full_name, email, password, location, role) VALUES
+INSERT INTO profiles (full_name, email, password, location, role, service_type) VALUES
  (
-    'John Davis',
-    'john.davis@aol.com',
-    'johndavis',
+    'Carry Davis',
+    'carry.davis@aol.com',
+    'carrydavis',
     'Acworth',
-    'user'
+    'pro',
+    'Make-Up Artist'
+ ),
+ (
+     'Mary Johns',
+     'marry_johns@yahoo.com',
+     'marryjohns',
+     'Marietta',
+     'pro',
+     'Cosmetologist'
+  ),
+ (
+     'Katherine Gramm',
+     'katherine.gramm.com',
+     'katherinegramm',
+     'Kennesaw',
+     'user',
+     ''
+  );
+
+ CREATE TABLE services (
+    id serial PRIMARY KEY,
+    service text NOT NULL,
+    price integer NOT NULL,
+    user_id integer,
+    created timestamp DEFAULT now()
+ );
+
+ INSERT INTO services (service, price, user_id) VALUES
+ (
+     'Wedding Trial',
+     100,
+     1
+  ),
+ (
+    'Make-Up',
+    80,
+    1
  );
