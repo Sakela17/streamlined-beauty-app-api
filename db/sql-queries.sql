@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS profiles;
 CREATE TABLE profiles (
   user_id serial PRIMARY KEY,
   full_name text NOT NULL,
-  email text NOT NULL,
+  email text UNIQUE NOT NULL,
   password text NOT NULL,
   location text NOT NULL,
   role text NOT NULL,

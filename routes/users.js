@@ -12,48 +12,39 @@ router.post('/', (req, res, next) => {
 
   // Validate user inputs
   validateFields(req.body)
-    // Check whether an email already exists in DB
     .then(newUser => {
-      return knex('profiles')
-        .where('email', newUser.email)
-        .then(response => {
-          // If email does not exist, hash password and create new user
-          if (!response.length) {
-            return hashPassword(newUser.password)
-              .then(hash => {
-                return knex('profiles')
-                  .insert({
-                    ...newUser,
-                    password: hash
-                  })
-                  .returning(['user_id', 'full_name', 'email', 'location', 'role', 'service_type'])
+      // Hash user's password before posting new user to DB
+      return hashPassword(newUser.password)
+        .then(hash => {
+          return knex('profiles')
+            .insert({
+              ...newUser,
+              password: hash
             })
-          } else {
-            return Promise.reject({
-              code: 422,
-              reason: 'ValidationError',
-              message: 'Email already taken',
-              location: 'email'
-            });
-          }
+            .returning(['user_id', 'full_name', 'email', 'location', 'role', 'service_type'])
         })
-
     })
     .then(response => {
       res.location(`${req.originalUrl}/${response.user_id}`).status(201).json(response);
     })
     .catch(err => {
-      console.log('****************** CATCH ERROR FROM USERS POST *****', err);
+      console.log('***** CATCH ERROR FROM USERS POST *****', err.code);
       // Forward validation errors on to the client, otherwise give a 500
       // error because something unexpected has happened
       if (err.reason === 'ValidationError') {
-        console.log('************ VALIDATION ERROR **********');
         return res.status(err.code).json(err);
       }
-      // res.status(500).json({code: 500, message: 'Internal server error'});
+      if (err.code === '23505') {
+        const errBlock = {
+          code: 400,
+          reason: 'ValidationError',
+          message: `The email already exists`,
+          location: 'email'
+        }
+        return res.status(errBlock.code).json(errBlock);
+      }
       next();
     });
-
 });
 
 
