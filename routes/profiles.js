@@ -6,8 +6,8 @@ const knex = require('../knex');
 /* ========== GET/READ ALL ITEMS ========== */
 router.get('/', (req, res, next) => {
   knex('profiles')
-    // .select()
-    .where('role', 'pro')
+    .select()
+    // .where('role', 'pro')
     .then(results => {
       res.json(results);
     })
@@ -15,8 +15,9 @@ router.get('/', (req, res, next) => {
 });
 
 /* ========== GET/READ A SINGLE ITEM ========== */
-router.get('/:id', (req, res, next) => {
-  const userId = req.params.id;
+router.get('/:user_id', (req, res, next) => {
+  console.log('***************', req.params);
+  const userId = req.params.user_id;
 
 
   knex
