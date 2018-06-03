@@ -44,6 +44,7 @@ const localStrategy = new LocalStrategy(
       if (err.reason === 'LogginError') {
         return done(null, false, { success: false, message: err.message });
       }
+      console.log('**************** DONE ERROR', err);
       return done(err);
     })
 });

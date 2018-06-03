@@ -1,11 +1,9 @@
 'use strict';
 
+require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
-
-
-
 
 const { PORT, CLIENT_ORIGIN } = require('./config');
 
@@ -19,6 +17,7 @@ const app = express();
 
 const passport = require('passport');
 const localStrategy = require('./passport/local');
+const jwtStrategy = require('./passport/jwt');
 
 // Log all requests. Skip logging during
 app.use(morgan(process.env.NODE_ENV === 'development' ? 'dev' : 'common', {
@@ -33,36 +32,9 @@ app.use(
     origin: CLIENT_ORIGIN
   })
 );
-// const { Strategy: LocalStrategy } = require('passport-local');
-// const localStrategy = new LocalStrategy((username, password, done) => {
-//   try {
-//     if (username !== 'bobuser') {
-//       console.log('Incorrect username');
-//       return done(null, false);
-//     }
-//     if (password !== 'baseball') {
-//       console.log('Incorrect password');
-//       return done(null, false);
-//     }
-//     const user = { username, password };
-//     done(null, user);
-//
-//   } catch (err) {
-//     done(err);
-//   }
-// });
-
-
-
 
 passport.use(localStrategy);
-
-// const localAuth = passport.authenticate('local', {session: false});
-//
-// app.post('/api/user', localAuth, function (req, res) {
-//   res.json( req.user );
-// });
-
+passport.use(jwtStrategy);
 
 app.use('/api', authRouter);
 app.use('/api/users', userRouter);
