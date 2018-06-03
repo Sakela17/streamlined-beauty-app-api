@@ -17,21 +17,24 @@ function createAuthToken(user) {
   });
 }
 
-// Implement passport.authenticate custom callback
+// Use local strategy to validate user email and password on sign in
 router.post('/signin', function(req, res, next) {
+  // Implement passport.authenticate custom callback
+  // to pass custom messages with Loggin errors
   passport.authenticate('local', options, function(err, user, response) {
+    console.log('************** RESPONSE', response);
     if (response.success) {
-      console.log('***********RESPONSE SUCCESS', response.success);
+
       const authToken = createAuthToken(user);
       res.json({ authToken });
     } else {
       res.status(401).json({
-      message: response.message
+        status: response.status,
+        reason: response.reason,
+        message: response.message,
+        location: response.location
       });
     }
-    // res.status(401).json({
-    //   message: response.message
-    // });
   })(req, res, next);
 });
 
