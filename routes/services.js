@@ -3,7 +3,7 @@
 const router = require('express').Router();
 const knex = require('../knex');
 
-/* ========== GET/READ ALL ITEMS ========== */
+/* ========== GET/READ ALL SERVICES ========== */
 router.get('/:user_id', (req, res, next) => {
   const user_id = req.params.user_id;
 

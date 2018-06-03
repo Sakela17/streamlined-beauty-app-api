@@ -2,14 +2,11 @@
 
 const router = require('express').Router();
 const knex = require('../knex');
-const bcrypt = require('bcryptjs');
-
 
 const validateFields = require('../utils/validators');
-const hashPassword = require('../utils/hashPassword');
+const { hashPassword } = require('../utils/validateHashPassword');
 
 router.post('/', (req, res, next) => {
-
   // Validate user inputs
   validateFields(req.body)
     .then(newUser => {
@@ -28,26 +25,20 @@ router.post('/', (req, res, next) => {
       res.location(`${req.originalUrl}/${response.user_id}`).status(201).json(response);
     })
     .catch(err => {
-      console.log('***** CATCH ERROR FROM USERS POST *****', err.code);
-      // Forward validation errors on to the client, otherwise give a 500
-      // error because something unexpected has happened
+      console.log('***** CATCH ERROR FROM USERS POST *****');
+      // Forward validation errors on to the client
       if (err.reason === 'ValidationError') {
         return res.status(err.code).json(err);
       }
       if (err.code === '23505') {
-        const errBlock = {
-          code: 400,
+        return res.status(400).json({
           reason: 'ValidationError',
           message: `The email already exists`,
           location: 'email'
-        }
-        return res.status(errBlock.code).json(errBlock);
+        });
       }
       next();
     });
 });
-
-
-
 
 module.exports = router;
