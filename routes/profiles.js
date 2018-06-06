@@ -3,18 +3,18 @@
 const router = require('express').Router();
 const knex = require('../knex');
 
-/* ========== GET/READ ALL ITEMS ========== */
+/* ========== GET/READ ALL PROFILES ========== */
 router.get('/', (req, res, next) => {
   knex('profiles')
-    .select()
-    // .where('role', 'pro')
+    // .select()
+    .where('role', 'pro')
     .then(results => {
       res.json(results);
     })
     .catch(next);
 });
 
-/* ========== GET/READ A SINGLE ITEM ========== */
+/* ========== GET/READ A SINGLE PROFILE ========== */
 router.get('/:user_id', (req, res, next) => {
   console.log('***************', req.params);
   const userId = req.params.user_id;
@@ -30,6 +30,19 @@ router.get('/:user_id', (req, res, next) => {
       } else {
         next();
       }
+    })
+    .catch(next);
+});
+
+/* ========== GET/READ ALL SERVICES ========== */
+router.get('/services/:user_id', (req, res, next) => {
+  const user_id = req.params.user_id;
+
+  knex('services')
+    .select()
+    .where('user_id', user_id)
+    .then(results => {
+      res.json(results);
     })
     .catch(next);
 });

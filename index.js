@@ -11,7 +11,6 @@ const authRouter = require('./routes/auth');
 const userRouter = require('./routes/users');
 const profilesRouter = require('./routes/profiles');
 const myProfileRouter = require('./routes/myProfile');
-const servicesRouter = require('./routes/services');
 
 // Create an express application
 const app = express();
@@ -41,7 +40,6 @@ app.use('/api', authRouter);
 app.use('/api/users', userRouter);
 app.use('/api/profiles', profilesRouter);
 app.use('/api/myprofile', myProfileRouter);
-app.use('/api/services', servicesRouter);
 
 
 // Catch-all 404

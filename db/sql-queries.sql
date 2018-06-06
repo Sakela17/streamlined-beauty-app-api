@@ -6,6 +6,7 @@
 
 DROP TABLE IF EXISTS services;
 DROP TABLE IF EXISTS profiles;
+DROP TABLE IF EXISTS users;
 
 
 --Create table:
@@ -49,7 +50,7 @@ INSERT INTO profiles (full_name, email, password, location, role, service_type) 
  CREATE TABLE services (
     id serial PRIMARY KEY,
     service text NOT NULL,
-    price integer NOT NULL,
+    price integer,
     user_id integer,
     created timestamp DEFAULT now()
  );
