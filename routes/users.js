@@ -21,7 +21,7 @@ router.post('/', (req, res, next) => {
             .returning(['user_id', 'full_name', 'email', 'location', 'role', 'service_type'])
         })
     })
-    .then(response => {
+    .then(([response]) => {
       res.location(`${req.originalUrl}/${response.user_id}`).status(201).json(response);
     })
     .catch(err => {

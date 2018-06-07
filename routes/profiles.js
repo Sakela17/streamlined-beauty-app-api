@@ -18,8 +18,6 @@ router.get('/', (req, res, next) => {
 router.get('/:user_id', (req, res, next) => {
   console.log('***************', req.params);
   const userId = req.params.user_id;
-
-
   knex
     .first()
     .from('profiles')
@@ -34,10 +32,9 @@ router.get('/:user_id', (req, res, next) => {
     .catch(next);
 });
 
-/* ========== GET/READ ALL SERVICES ========== */
+/* ========== GET/READ ALL SERVICES BY USER ID ========== */
 router.get('/services/:user_id', (req, res, next) => {
   const user_id = req.params.user_id;
-
   knex('services')
     .select()
     .where('user_id', user_id)
@@ -46,6 +43,5 @@ router.get('/services/:user_id', (req, res, next) => {
     })
     .catch(next);
 });
-
 
 module.exports = router;
