@@ -6,7 +6,7 @@ const knex = require('../knex');
 /* ========== GET/READ ALL PROFILES ========== */
 router.get('/', (req, res, next) => {
   knex('profiles')
-    // .select()
+    .select('user_id', 'full_name', 'email', 'location', 'role', 'service_type')
     .where('role', 'pro')
     .then(results => {
       res.json(results);
@@ -18,11 +18,10 @@ router.get('/', (req, res, next) => {
 router.get('/:user_id', (req, res, next) => {
   console.log('***************', req.params);
   const userId = req.params.user_id;
-  knex
-    .first()
-    .from('profiles')
+  knex('profiles')
+    .select('user_id', 'full_name', 'email', 'location', 'role', 'service_type')
     .where('user_id', userId)
-    .then(user => {
+    .then(([user]) => {
       if (user) {
         res.json(user);
       } else {
