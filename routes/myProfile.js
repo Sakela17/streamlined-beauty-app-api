@@ -57,20 +57,20 @@ router.post('/service', (req, res, next) => {
     });
 });
 
-/* ========== PUT/UPDATE A NEW SERVICE ========== */
-router.put('/service/:id', (req, res, next) => {
-  const id = req.params.id;
-  const { service, price } = req.body;
-
-  knex('services')
-    .update({ service, price })
-    .where('id', id)
-    .returning('*')
-    .then(([response]) => {
-      res.json(response);
-    })
-    .catch(next);
-});
+// /* ========== PUT/UPDATE A NEW SERVICE ========== */
+// router.put('/service/:id', (req, res, next) => {
+//   const id = req.params.id;
+//   const { service, price } = req.body;
+//
+//   knex('services')
+//     .update({ service, price })
+//     .where('id', id)
+//     .returning('*')
+//     .then(([response]) => {
+//       res.json(response);
+//     })
+//     .catch(next);
+// });
 
 /* ========== DELETE A SERVICE ========== */
 router.delete('/service/:id', (req, res, next) => {
