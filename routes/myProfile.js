@@ -5,7 +5,7 @@ const knex = require('../knex');
 //Protect endpoints using JWT Strategy
 router.use('/', passport.authenticate('jwt', {session: false, failWithError: true}));
 
-/* ========== GET/READ ALL ITEMS ========== */
+/* ========== GET/READ PROFILE DETAILS ========== */
 router.get('/details', (req, res, next) => {
   console.log('************ USER ', req.user);
   const user_id = req.user.user_id;
@@ -22,6 +22,21 @@ router.get('/details', (req, res, next) => {
     })
     .catch(next);
 });
+
+/* ========== GET/READ PROFILE SERVICES ========== */
+router.get('/services', (req, res, next) => {
+  console.log('************ USER ', req.user);
+  const user_id = req.user.user_id;
+
+  knex('profiles')
+    .select()
+    .where('user_id', user_id)
+    .then(results => {
+      res.json(results);
+    })
+    .catch(next);
+});
+
 
 /* ========== POST/CREATE A NEW SERVICE ========== */
 router.post('/service', (req, res, next) => {

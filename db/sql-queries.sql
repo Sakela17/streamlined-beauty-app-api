@@ -31,14 +31,6 @@ INSERT INTO profiles (full_name, email, password, location, role, service_type) 
     'Make-Up Artist'
  ),
  (
-     'Mary Johns',
-     'marry_johns@yahoo.com',
-     'marryjohns',
-     'Marietta',
-     'pro',
-     'Cosmetologist'
-  ),
- (
      'Katherine Gramm',
      'katherine.gramm.com',
      'katherinegramm',
