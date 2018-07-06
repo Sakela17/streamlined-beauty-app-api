@@ -2,7 +2,8 @@
 
 module.exports = {
   PORT: process.env.PORT || 8080,
-  CLIENT_ORIGIN: process.env.CLIENT_ORIGIN || 'http://localhost:3000',
+  CLIENT_ORIGIN: process.env.CLIENT_ORIGIN  || 'http://localhost:3000',
+  CLIENT_ORIGIN_ANGULAR: process.env.CLIENT_ORIGIN_ANGULAR  || 'http://localhost:4200',
   // DATABASE_URL:
   //       process.env.DATABASE_URL || 'mongodb://localhost/thinkful-backend',
   // TEST_DATABASE_URL:

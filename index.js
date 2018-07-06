@@ -5,7 +5,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 
-const { PORT, CLIENT_ORIGIN } = require('./config');
+const { PORT, CLIENT_ORIGIN, CLIENT_ORIGIN_ANGULAR } = require('./config');
 
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/users');
@@ -27,10 +27,25 @@ app.use(morgan(process.env.NODE_ENV === 'development' ? 'dev' : 'common', {
 // Parse request body
 app.use(express.json());
 
+
+const whitelist = [CLIENT_ORIGIN, CLIENT_ORIGIN_ANGULAR];
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    }
+};
+
 app.use(
-  cors({
-    origin: CLIENT_ORIGIN
-  })
+  cors(
+      corsOptions
+  // {
+    // origin: CLIENT_ORIGIN
+  // }
+  )
 );
 
 passport.use(localStrategy);
@@ -82,4 +97,4 @@ if (require.main === module) {
 
 
 // Export for testing
-module.export = app;
+module.exports = app;
