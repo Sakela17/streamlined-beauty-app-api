@@ -33,7 +33,7 @@ router.post('/', (req, res, next) => {
       if (err.code === '23505') {
         return res.status(400).json({
           reason: 'ValidationError',
-          message: `The email already exists`,
+          message: `The username already exists`,
           location: 'email'
         });
       }

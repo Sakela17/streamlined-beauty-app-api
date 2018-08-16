@@ -42,6 +42,7 @@ router.get('/services', (req, res, next) => {
 router.post('/service', (req, res, next) => {
   const { user_id, service, price = 0 } = req.body;
 
+  //TODO: get user_id value from JWT
   const newService = {
     user_id,
     service,

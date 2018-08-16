@@ -24,7 +24,6 @@ router.post('/signin', function(req, res, next) {
   passport.authenticate('local', options, function(err, user, response) {
     console.log('************** RESPONSE', response);
     if (response.success) {
-
       const authToken = createAuthToken(user);
       res.json({ authToken });
     } else {

@@ -1,8 +1,9 @@
 Streamlined Beauty API
 ============================
-This app supports [Streamlined Beauty](https://github.com/Sakela17/streamlined-beauty-app) web application. See [here](https://github.com/Sakela17/streamlined-beauty-app) for more details.
+This API provides resources for [Streamlined Beauty](https://streamlinedbeauty.netlify.com) app which 
+documentation can be found [here](https://github.com/valsakel/streamlined-beauty-client).
 
-### Motivation
+## Motivation
 It was a two-week project for Engineering Immersion program at [Thinkful](https://www.thinkful.com/bootcamp/atlanta/).
 The goal was to develop a full-stack project, creating a frontend using React and Redux which communicates with a Node backend.
 
@@ -49,7 +50,179 @@ __*In the next steps, you will add Postgres database hosted on ElephantSQL to yo
 
 If everything went well, now this app is deployed on Heroku using ElephantSQL to host Postgres database. 
  
- ## Built With
+## API Documentation
+ 
+#### `GET /profiles` - unprotected
+ 
+Returns all profiles of the users registered as 'pro' (professional)
+ 
+Example response:
+ 
+```javascript
+  [ {
+    user_id: 1,
+    full_name: "Carry Davis",
+    email: "carry.davis@aol.com",
+    location: "Acworth",
+    role: "pro",
+    service_type: "Make-up Artist"
+  }, {
+    user_id: 2,
+    full_name: "Mary Johns",
+    email: "mary_johns@yahoo.com",
+    location: "Marietta",
+    role: "pro",
+    service_type: "Nail Specialist"
+  } ]
+```
+
+#### `GET /profiles/:user_id` - unprotected
+ 
+Returns a singe document from *profile* collection 
+associated with a user whose *id* obtained URL parameter
+ 
+Example response:
+
+```javascript
+  {
+    user_id: 1,
+    full_name: "Carry Davis",
+    email: "carry.davis@aol.com",
+    location: "Acworth",
+    role: "pro",
+    service_type: "Make-up Artist"
+  }
+```
+
+#### `GET /profiles/services/:user_id` - unprotected
+ 
+Returns a list of documents from *services* collection associated 
+with a user whose *id* obtained from URL parameter
+ 
+Example response:
+ 
+```javascript
+  [ {
+    id: 3,
+    service: "Manicure",
+    price: 35,
+    user_id: 10,
+    created: "2018-08-16T04:28:41.679Z"
+  }, {
+    id: 3,
+    service: "Pedicure",
+    price: 60,
+    user_id: 10,
+    created: "2018-08-16T05:28:41.679Z"
+  } ]
+```
+
+#### `GET /myprofile/details` - protected
+ 
+Returns a singe document from *profile* collection associated 
+with a user whose *id* obtained from JWT
+ 
+Example response:
+
+```javascript
+  {
+    user_id: 1,
+    full_name: "Carry Davis",
+    email: "carry.davis@aol.com",
+    location: "Acworth",
+    role: "pro",
+    service_type: "Make-up Artist"
+  }
+```
+ 
+#### `GET /myprofile/services` - protected
+ 
+Returns all documents from *services* collection 
+associated with the *user_id* obtained from JWT
+ 
+Example response:
+ 
+```javascript
+  [ {
+    id: 3,
+    service: "Manicure",
+    price: 35,
+    user_id: 10,
+    created: "2018-08-16T04:28:41.679Z"
+  }, {
+    id: 3,
+    service: "Pedicure",
+    price: 60,
+    user_id: 10,
+    created: "2018-08-16T05:28:41.679Z"
+  } ]
+```
+
+#### `POST /service` - protected
+
+Creates a new document in *services* collection
+
+Data parameters:
+
+```
+ {
+    user_id: 1,
+    service: "Make-up Artist",
+    price: 50
+  } 
+```
+
+Example response:
+
+```javascript
+{
+  id: 3,
+  service: "Make-up Artist",
+  price: 50,
+  user_id: 1,
+  created: "2018-08-16T05:28:41.679Z"
+}
+```
+
+#### `DELETE /service/:id` - protected
+
+Deletes requested document in *services* collection
+
+Example response:
+
+None
+
+#### `POST /users` - protected
+
+Creates a new document in *profiles* collection
+
+Data parameters:
+
+```
+ {
+    user_id: 1,
+    full_name: "Carry Davis",
+    email: "carry.davis@aol.com",
+    location: "Acworth",
+    role: "pro",
+    service_type: "Make-up Artist"
+  } 
+```
+
+Example response:
+
+```javascript
+{
+  user_id: 1,
+  full_name: "Carry Davis",
+  email: "carry.davis@aol.com",
+  location: "Acworth",
+  role: "pro",
+  service_type: "Make-up Artist"
+}
+```
+ 
+ ## Tech Stack
  
  [Node.js](https://nodejs.org/en/)
  

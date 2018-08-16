@@ -23,7 +23,7 @@ const validateFields = (body) => {
       }
     );
   }
-  console.log('************* ROLE ************', body.role);
+
   if (body.role !== 'user' && body.role !== 'pro') {
     return Promise.reject({
         code: 422,
